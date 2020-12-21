@@ -42,8 +42,7 @@ public class PrimeCollector implements Collector<Integer, Map<Boolean, List<Inte
 
     private boolean isPrime(List<Integer> primes, int candidate) {
         return primes.stream()
-                .takeWhile(i -> i <= candidate)
-                .noneMatch(i -> candidate % i == 0);
+                .noneMatch(integer -> candidate % integer == 0);
     }
 
 }
