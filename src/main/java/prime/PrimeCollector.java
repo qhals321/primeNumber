@@ -23,17 +23,21 @@ public class PrimeCollector implements Collector<Integer, Map<Boolean, List<Inte
 
     @Override
     public BinaryOperator<Map<Boolean, List<Integer>>> combiner() {
-        return null;
+        return (map1, map2) -> {
+          map1.get(true).addAll(map2.get(true));
+          map1.get(false).addAll(map2.get(false));
+          return map1;
+        };
     }
 
     @Override
     public Function<Map<Boolean, List<Integer>>, Map<Boolean, List<Integer>>> finisher() {
-        return null;
+        return Function.identity();
     }
 
     @Override
     public Set<Characteristics> characteristics() {
-        return null;
+        return Collections.unmodifiableSet(EnumSet.of(Characteristics.IDENTITY_FINISH));
     }
 
     private boolean isPrime(List<Integer> primes, int candidate) {
